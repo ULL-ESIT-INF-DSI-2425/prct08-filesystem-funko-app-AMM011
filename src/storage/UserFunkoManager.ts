@@ -68,4 +68,27 @@ export class UserFunkoManager {
         if (success) await this.saveFunko(funko);
         return success;
     }
+
+    /**
+     * Elimina un Funko por ID.
+     */
+    async remove(id: number): Promise<boolean> {
+        const success = this.collection.removeFunko(id);
+        if (success) await this.deleteFunkoFile(id);
+        return success;
+    }
+
+    /**
+     * Lista todos los Funkos.
+     */
+    list(): Funko[] {
+        return this.collection.listFunkos();
+    }
+
+    /**
+     * Devuelve un Funko por ID.
+     */
+    get(id: number): Funko | undefined {
+        return this.collection.getFunko(id);
+    }
 }
