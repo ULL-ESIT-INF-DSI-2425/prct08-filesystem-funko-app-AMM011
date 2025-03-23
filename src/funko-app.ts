@@ -152,5 +152,39 @@ yargs(hideBin(process.argv))
       }
     }
   )
+  .command(
+    'list',
+    'Lista todos los funkos de un usuario',
+    {
+      user: { type: 'string', demandOption: true, describe: 'Nombre de usuario'}
+    },
+    async(argv) => {
+      const manager = new UserFunkoManager(argv.user);
+      await manager.load();
+
+      const funko = manager.list();
+
+      if (funko.length === 0) {
+        console.log(chalk.yellow(`⚠️ No hay Funkos en la colección de ${argv.user}.`));
+        return;
+      }
+
+      console.log(chalk.greenBright(`\nColección de Funkos de ${argv.user}`));
+      console.log(chalk.gray('-------------------------------'));
+
+      funko.forEach((funko) => {
+        console.log(chalk.cyan.bold(`ID: ${funko.id} - ${funko.name}`));
+        console.log(`  Descripción: ${funko.description}`);
+        console.log(`  Tipo: ${funko.type}`);
+        console.log(`  Género: ${funko.genre}`);
+        console.log(`  Franquicia: ${funko.franchise}`);
+        console.log(`  Nº en franquicia: ${funko.number}`);
+        console.log(`  Exclusivo: ${funko.exclusive ? 'Sí' : 'No'}`);
+        console.log(`  Características: ${funko.specialFeatures}`);
+        console.log(`  Valor de mercado: ${colorValue(funko.marketValue)}`);
+        console.log(chalk.gray('-------------------------------'));
+      });
+    }
+  )
   .help()
   .parse();
