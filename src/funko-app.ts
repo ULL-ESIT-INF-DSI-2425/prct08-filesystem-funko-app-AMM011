@@ -122,5 +122,35 @@ yargs(hideBin(process.argv))
         }
     }
   )
+  .command(
+    'read',
+    'Muestra un Funko concreto por ID',
+    {
+      user: { type: 'string', demandOption: true, describe: 'Nombre de usuario'},
+      id: { type: 'number', demandOption: true, describe: 'ID del Funko a mostrar'}
+    },
+    async(argv) => {
+      const manager = new UserFunkoManager(argv.user);
+      await manager.load();
+
+      const funko = manager.get(argv.id);
+      if (funko) {
+        console.log(chalk.bold(`\nFunko de ${argv.user}`));
+        console.log('----------------------------');
+        console.log(`ID: ${funko.id}`);
+        console.log(`Nombre: ${funko.name}`);
+        console.log(`Descripción: ${funko.description}`);
+        console.log(`Tipo: ${funko.type}`);
+        console.log(`Género: ${funko.genre}`);
+        console.log(`Franquicia: ${funko.franchise}`);
+        console.log(`Nº en franquicia: ${funko.number}`);
+        console.log(`Exclusivo: ${funko.exclusive ? 'Sí' : 'No'}`);
+        console.log(`Características: ${funko.specialFeatures}`);
+        console.log(`Valor de mercado: ${colorValue(funko.marketValue)}`);
+      } else {
+        console.log(chalk.red(`❌ No se encontró el Funko con ID ${argv.id} en la colección de ${argv.user}.`));
+      }
+    }
+  )
   .help()
   .parse();
