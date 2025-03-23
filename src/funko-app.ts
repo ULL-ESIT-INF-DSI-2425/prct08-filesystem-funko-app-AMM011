@@ -92,5 +92,24 @@ yargs(hideBin(process.argv))
       }
     }
   )  
+  .command(
+    'remove',
+    'Elimina un Funko por su ID',
+    {
+        user: { type: 'string', demandOption: true, describe: 'Nombre de usuario' },
+        id: { type: 'number', demandOption: true, describe: 'ID del Funko a eliminar' }
+    },
+    async (argv) => {
+        const manager = new UserFunkoManager(argv.user);
+        await manager.load();
+
+        const success = await manager.remove(argv.id);
+        if (success) {
+            console.log(chalk.green(`🗑️ Funko con ID ${argv.id} eliminado de la colección de ${argv.user}.`));
+        } else {
+            console.log(chalk.red(`❌ No se encontró el Funko con ID ${argv.id} en la colección de ${argv.user}.`));
+        }
+    }
+  )
   .help()
   .parse();

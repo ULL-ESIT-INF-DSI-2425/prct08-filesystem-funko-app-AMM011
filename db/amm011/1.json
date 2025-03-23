@@ -1,12 +1,12 @@
 {
   "id": 1,
-  "name": "Sonic",
-  "description": "Classic Sonic",
+  "name": "Classic Sonic",
+  "description": "The best Sonic Funko ever",
   "type": "Pop!",
   "genre": "Videojuegos",
   "franchise": "Sonic",
   "number": 1,
-  "exclusive": false,
-  "specialFeatures": "Brilla en la oscuridad",
-  "marketValue": 35
+  "exclusive": true,
+  "specialFeatures": "Glow in the dark",
+  "marketValue": 60
 }
