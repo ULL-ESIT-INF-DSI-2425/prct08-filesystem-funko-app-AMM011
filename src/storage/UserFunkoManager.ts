@@ -61,6 +61,15 @@ export class UserFunkoManager {
     }
 
     /**
+     * Añade un Funko a la colección del usuario.
+     */
+    async add(funko: Funko): Promise<boolean> {
+        const success = this.collection.addFunko(funko);
+        if (success) await this.saveFunko(funko);
+        return success;
+    }
+
+    /**
      * Actualiza un Funko existente.
      */
     async update(funko: Funko): Promise<boolean> {
