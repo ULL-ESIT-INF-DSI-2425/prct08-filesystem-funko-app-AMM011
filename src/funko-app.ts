@@ -7,6 +7,17 @@ import { FunkoGenre } from './models/FunkoGenre.js';
 import chalk from 'chalk';
 
 /**
+ * Devuelve el valor formateado con color según su valor.
+ * @param value - Valor de meracado.
+ */
+function colorValue(value: number): string {
+    if (value <= 20) return chalk.red(`${value}€`);
+    if (value <= 50) return chalk.yellow(`${value}€`);
+    if (value <= 100) return chalk.blue(`${value}€`);
+    return chalk.green(`${value}€`);
+}
+
+/**
  * Configuración de comandos para la aplicación CLI de gestión de Funkos.
  */
 yargs(hideBin(process.argv))
